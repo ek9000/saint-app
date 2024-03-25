@@ -1,0 +1,54 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+html,body
+{
+  margin: 0;
+  padding: 0;
+  background-color: rgb(231, 231, 231);
+}
+#canvas,#canvas_ui,#bg
+{
+  padding: 0;
+  margin: auto;
+  display: block;
+  width: 1240px;
+  height: 720px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#cursor
+{
+width: 4px;
+height: 4px;
+background-color: red;
+position: absolute;
+}
+.nocursor { cursor:none; }
+
+
+.canvas_container
+{
+  width: 100vw;
+  height: 100vh;
+  /*overflow: scroll;*/
+  display: block;
+  position: fixed;
+  left: 10%;
+  background-color: #a3a3a3;
+  touch-action: none;
+}
