@@ -32,24 +32,11 @@ export function setupCanvas(element: HTMLCanvasElement,element_2:HTMLCanvasEleme
     let _history_id = 0;
     let lastPoint = { x: 0, y: 0 };
     let currentPoint = { x: 0, y: 0 };
-    //let id = ctx.getImageData(0, 0,width, height);
-    //ctx.putImageData(id,0,0);
-   
-   /* const setCounter = (count: number) => {
-      counter = count
-      element.innerHTML = `count is ${counter}`
-    }*/
 
 
-
-
-
-   // ctx.fillStyle = 'transparent';
-    //ctx.fillRect(0, 0, width, height);
-    ctx_ui.fillStyle = 'blue';
-    ctx_ui.fillRect(0, 0, width, height);
     ctx.clearRect(0,0,width,height)
-    //ctx_ui.clearRect(0,0,width,height)
+    ctx_ui.clearRect(0,0,width,height)
+  
     _history[_history_id] = ctx.getImageData(0, 0,width, height)
     const _draw = (x: number,y:number,e:PointerEvent) =>
     {
@@ -59,111 +46,44 @@ export function setupCanvas(element: HTMLCanvasElement,element_2:HTMLCanvasEleme
         //console.log(e);
         if(e.buttons == 1){
             
-            let rect = element.getBoundingClientRect();
-      /*  points.push({ x: e.clientX - rect.left, y: e.clientY - rect.top});
-        
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-        var p1 = points[0];
-        var p2 = points[1];
-        
-        ctx.beginPath();
-        let new_pressure = Math.max(e.pressure,_min_stroke_size/100)
-        ctx.moveTo(p1.x, p1.y);
-        //console.log(points);
-       
-        for (var i = 1, len = points.length; i < len; i++) {
-          // we pick the point between pi+1 & pi+2 as the
-          // end point and p1 as our control point
-          var midPoint = midPointBtw(p1, p2);
-          ctx.quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
-          ctx.lineWidth = _stroke_size*new_pressure;
-          p1 = points[i];
-          p2 = points[i+1];
-        }
-        // Draw last line as a straight line while
-        // we wait for the next point to be able to calculate
-        // the bezier control point
-        ctx.lineTo(p1.x, p1.y);
-        ctx.stroke();*/
-        /*currentPoint = { x: e.clientX, y: e.clientY };
-        var dist = distanceBetween(lastPoint, currentPoint);
-        var angle = angleBetween(lastPoint, currentPoint);
-        //points[i] = [f_x,f_y];
-        ctx.fillStyle = 'black';
-
-        for (var i = 0; i < dist; i+=0.5) {
-            x = lastPoint.x + (Math.sin(angle) * i)  - rect.left;
-            y = lastPoint.y + (Math.cos(angle) * i)  - rect.top;
-            let f_x = x ;
-            let f_y = y ;
-            ctx.beginPath();
-            let new_pressure = Math.max(e.pressure,_min_stroke_size/100)
-            ctx.arc(f_x, f_y,_stroke_size*new_pressure, 0, Math.PI * 2, false);
-            ctx.closePath();
-            //ctx.fill();
-            ctx.stroke();
-          }
-          
-          lastPoint = currentPoint;*/
-
-        //ctx.fillRect(x,y,1,1);
-        
+          let rect = element.getBoundingClientRect();
+           
         let f_x = x- rect.left;
         let f_y = y - rect.top;
+
+        
         points.push({x:Math.round(f_x),y:Math.round(f_y)});
         
-            if(points.length>0)
+            if(i>0)
             {
-                var p1 = points[0];
-                var p2 = points[1];
-                ctx.lineJoin = "round";
-                ctx.beginPath()
+              var p1 = points[i-1];
+              var p2 = points[i];
+               ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
                 let new_pressure = Math.max(e.pressure,_min_stroke_size/100)
+                ctx.lineTo(p2.x,p2.y);
+                       
                 ctx.lineWidth = _stroke_size*new_pressure;
-                for ( let j = 1;j < points.length; j++) {
-                    ctx.moveTo(p1.x,p1.y);
-                    // we pick the point between pi+1 & pi+2 as the
-                    // end point and p1 as our control point
-                    
-                    var midPoint = midPointBtw(p1, p2);
-                    ctx.quadraticCurveTo(Math.round(p2.x),Math.round( p2.y),Math.round( midPoint.x),Math.round( midPoint.y));
-                    
-                    ctx.lineCap = "round";
-                    p1 = points[j];
-                    p2 = points[j+1];
-                  }
-                //ctx.lineTo(points[i-1].x,points[i-1].y);
-                //var midPoint = midPointBtw(points[i-1], points[i]);
-                //ctx.quadraticCurveTo(points[i].x, points[i].y, midPoint.x, midPoint.y);
-                //let modified_pixels = DrawPixel(pixels,points[i][0],points[i][1],'#FF0000')
-                //setPixelXY(id,points[i][0],points[i][1],255,255,0,255);
-                //ctx.closePath()
-                
-                //ctx.lineWidth = _stroke_size*new_pressure;
                 ctx.lineCap = "round";
-                ctx.lineTo(p1.x, p1.y);
+           
                 ctx.stroke();
-                //ctx.ellipse(points[i].x,points[i].y,ctx.lineWidth,ctx.lineWidth,0,0,0)
-                //const imageData = new ImageData(modified_pixels!, width, height);
-                //let imageData = ctx.getImageData(0,0,width,height);
-                
+               
+                 
             }
-            //i++;
+            i++;
             
         }
         else
         {
-           //i=0;
+           i=0;
            points.length = 0;
-           //soltar
-           //_history_id++;
+
         }
         
     }
 
    //isPenDown
-    //document.addEventListener('pointerenter',(e) =>_draw(e.clientX ,e.clientY,e));
+
     document.addEventListener('pointerdown',(e) =>{
         
         isPenDown = true;
@@ -211,17 +131,16 @@ export function setupCanvas(element: HTMLCanvasElement,element_2:HTMLCanvasEleme
         {
            
             if(_history_id>0){
-               //ctx.fillStyle = "white"
-               //ctx.fillRect(0,0,width,height)
                ctx.clearRect(0,0,width,height)
                 
                 _history_id--;
+                if(_history[_history_id-1])
                 ctx.putImageData(_history[_history_id-1],0,0);
                 console.log(_history[_history_id]);
             }
         }
     });
-   // element.addEventListener('pointerleave',(e) =>{i=0;points = [];});
+
    document.addEventListener('contextmenu', event => event.preventDefault());
 
    _stroke_size_range.addEventListener('change',(e) =>{
