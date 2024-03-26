@@ -4,9 +4,10 @@ import { setupCanvas } from './canvas.ts'
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   
   <div class="canvas_container">
-  <div id="bg" style="background-color:white;"></div>
+  <div id="canv_margin"></div>
+  <div id="bg" style="background-color:white;" class="nocursor"></div>
   <canvas id="canvas" class="nocursor"></canvas>
-  <canvas id="canvas_ui" width="1240" height="720" class="nocursor"></canvas>
+  <canvas id="canvas_ui" ></canvas>
   </div>
   
   
@@ -15,3 +16,4 @@ setupCanvas(document.querySelector<HTMLCanvasElement>('#canvas')!,document.query
 
 //setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 document.getElementsByClassName('nocursor')[0]
+

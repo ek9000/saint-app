@@ -22,14 +22,29 @@ html,body
   padding: 0;
   margin: auto;
   display: block;
-  width: 1240px;
-  height: 720px;
+  
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  cursor:none;
 }
+/*#canvas
+{
+  width: 1240px;
+  height: 720px;
+}
+#canvas_ui
+{
+  width: 1240px;
+  height: 720px;
+}
+#bg
+{
+  width: 1240px;
+  height: 720px;
+}*/
 
 #cursor
 {
@@ -43,12 +58,18 @@ position: absolute;
 
 .canvas_container
 {
-  width: 100vw;
-  height: 100vh;
-  /*overflow: scroll;*/
+  width: 90vw;
+  height: 95vh;
+  overflow: scroll;
   display: block;
   position: fixed;
   left: 10%;
   background-color: #a3a3a3;
   touch-action: none;
+}
+
+#canv_margin
+{
+  width:500px;
+  height:500px
 }
